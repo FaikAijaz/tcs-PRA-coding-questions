@@ -1,4 +1,73 @@
-public class Bank {
+package com.tcs;
+
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class prac2 {
+	public static void main(String[] args) {
+		Bank[] banks=new Bank[4];
+		Scanner sc=new Scanner(System.in);
+		for(int i=0;i<banks.length;i++) {
+			int a=sc.nextInt();
+			sc.nextLine();
+			String b=sc.nextLine();
+			int c=sc.nextInt();
+			sc.nextLine();
+			String d=sc.nextLine();
+			banks[i]=new Bank(a,b,c,d);
+			
+		}
+		String data=sc.nextLine();
+		int j=findAvgNumberOfCustomersByCity(banks,data);
+		Bank s=getSecondLowestNumberOfCustomersBank(banks);
+		System.out.println(j);
+		System.out.println(s.getbankId());
+		System.out.println(s.getbankName());
+		System.out.println(s.getcity());
+		System.out.println(s.getnumberOfCustomers());
+		
+		
+		
+		
+		
+	}
+	public static int findAvgNumberOfCustomersByCity(Bank[] list,String city) {
+		int sum=0;
+		int count=0;
+		for(Bank i:list) {
+			if(i.getcity().equalsIgnoreCase(city)) {
+				sum=sum+i.getnumberOfCustomers();
+				count++;
+				
+				
+			}
+		}return sum/count;
+		
+	}
+	public static Bank getSecondLowestNumberOfCustomersBank(Bank[] list) {
+		Bank lowest=null;
+		Bank seclowest=null;
+		for(Bank bank:list) {
+			if(bank.getnumberOfCustomers()%2==0) {
+				if(lowest==null || bank.getnumberOfCustomers()<lowest.getnumberOfCustomers()) {
+					seclowest=lowest;
+					lowest=bank;
+				}else if(seclowest==null || bank.getnumberOfCustomers()<seclowest.getnumberOfCustomers()) {
+					seclowest=bank;
+					
+					
+				}
+			}
+		}
+		return seclowest;
+		
+
+
+		
+	}
+
+}
+class Bank {
 private int bankId;
 private String bankName;
 private int numberOfCustomers;
